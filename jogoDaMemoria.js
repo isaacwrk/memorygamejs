@@ -9,6 +9,8 @@ class JogoDaMemoria{
             {img:'./src/groot.png', name:'groot'},
             {img:'./src/miranha.png', name:'homem-aranha'},
         ]
+        this.iconePadrao = './src/padrao.png'
+        this.heroisEscondidos = []
     }
     inicializar(){
         //vai pegar todas as funcoes da tela!
@@ -29,8 +31,23 @@ class JogoDaMemoria{
         // ordenar aleatoriamente
         .sort(()=>Math.random() - 0.5)
         this.tela.atualizarImagens(copias)
+        //esperar 1 segundo para atualizar a tela
+        setTimeout(()=>{
+            this.esconderHerois(copias)
+        }, 1000)
     }
-
+    esconderHerois(herois){
+        //vamos trocar a imagem de todos os herois existentes
+        //pelo icone padrao
+        const heroiOcultos = herois.map(( {nome, id}) =>({
+            id,
+            nome,
+            img:this.iconePadrao
+        }))
+        //atualizamos a tela
+        this.tela.atualizarImagens(heroiOcultos)
+        this.heroisOcultos = heroisOcultos
+    }
     jogar(){
         this.embaralhar()
     }
