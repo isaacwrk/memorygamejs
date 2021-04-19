@@ -36,7 +36,7 @@ class JogoDaMemoria{
         //esperar 1 segundo para atualizar a tela
         setTimeout(()=>{
             this.esconderHerois(copias)
-        }, 1000)
+        }, 2000)
     }
     esconderHerois(herois){
         //vamos trocar a imagem de todos os herois existentes
@@ -49,6 +49,12 @@ class JogoDaMemoria{
         //atualizamos a tela
         this.tela.atualizarImagens(heroiOcultos)
         this.heroisOcultos = heroisOcultos
+    }
+    exibirHerois(nomeDoHeroi){
+        //exibir herois que tenham exatamente o mesmo nome
+        const {img} = this.heroisIniciais.find(({ nome })=> nomeDoHeroi === nome)
+        //criando funcao na tela
+        this.tela.exibirHerois(nomeDoHeroi,img)
     }
     verificarSelecao(id,nome){
         const item = {id,nome}
@@ -66,10 +72,11 @@ class JogoDaMemoria{
                 this.heroisSelecionados = []
                 //condicional para verificar se id é igual
                 if(opcao1.nome === item.nome && opcao1 !== item.id){
-                    alert('Combinação correta!'+ item.nome)
+                    this.exibirHerois(item.nome)
+                    this.tela.exibirMensagem()
                     return;
                 }
-                alert('combinação incorreta!')
+                this.tela.exibirMensagem(false)
                 break;
         }
     }
