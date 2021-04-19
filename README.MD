@@ -7,6 +7,6 @@ Trata-se de um jogo da memória aonde o objetivo é conseguir lembrar de todas a
 
 
 você pode testar aqui no seu browser pelo link:
-https://isaacwrk.github.io/memorygamejs/index.html
+https://isaacwrk.github.io/memorygamejs/
 
 Fico aberto a novas implementações caso queiram ajudar!
