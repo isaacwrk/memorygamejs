@@ -4,13 +4,14 @@ class JogoDaMemoria{
         this.tela = tela
 
         this.heroisIniciais = [
-            {img:'./src/batman.png', name:'batman'},
-            {img:'./src/flash.png', name:'flash'},
-            {img:'./src/groot.png', name:'groot'},
-            {img:'./src/miranha.png', name:'homem-aranha'},
+            {img:'./src/batman.png', nome:'batman'},
+            {img:'./src/flash.png', nome:'flash'},
+            {img:'./src/groot.png', nome:'groot'},
+            {img:'./src/miranha.png', nome:'homem-aranha'},
         ]
         this.iconePadrao = './src/padrao.png'
         this.heroisEscondidos = []
+        this.heroisSelecionados = []
     }
     inicializar(){
         //vai pegar todas as funcoes da tela!
@@ -18,6 +19,7 @@ class JogoDaMemoria{
         this.tela.atualizarImagens(this.heroisIniciais)
         //Força a tela a usar o THIS de jogo da memória
         this.tela.configurarBotaoJogar(this.jogar.bind(this))
+        this.tela.configurarBotaoConfigurarSelecao(this.verificarSelecao.bind(this))
         
     }
     embaralhar(){
@@ -47,6 +49,29 @@ class JogoDaMemoria{
         //atualizamos a tela
         this.tela.atualizarImagens(heroiOcultos)
         this.heroisOcultos = heroisOcultos
+    }
+    verificarSelecao(id,nome){
+        const item = {id,nome}
+        //Verificando a quantidade de heróis selecionados e tomar ação se escolheu certo ou errado
+        const heroisSelecionados = this.heroisSelecionados.length
+        switch(heroisSelecionados){
+            case 0:
+                //adiciona em uma lista
+                this.heroisSelecionados.push(item)
+                break;
+            case 1:
+                //se a quantidade for 1 significa que o usuario só pode escolher mais 1
+                const [opcao1] = this.heroisSelecionados
+                //zerar a lista anterior mais de dois
+                this.heroisSelecionados = []
+                //condicional para verificar se id é igual
+                if(opcao1.nome === item.nome && opcao1 !== item.id){
+                    alert('Combinação correta!'+ item.nome)
+                    return;
+                }
+                alert('combinação incorreta!')
+                break;
+        }
     }
     jogar(){
         this.embaralhar()
